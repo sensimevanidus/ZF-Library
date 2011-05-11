@@ -4,7 +4,7 @@ require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Model/Method/Constants.php';
 require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Email.php';
 require_once 'Model/Method/EmailMock.php';
 
-class SE_Auth_Adapter_Doctrine_Model_EmailTest extends LibraryClassTest {
+class SE_Auth_Adapter_Doctrine_EmailTest extends LibraryClassTest {
 
     public function testShouldAuthenticate() {
         $doctrineEmailAdapter = new SE_Auth_Adapter_Doctrine_Email(
