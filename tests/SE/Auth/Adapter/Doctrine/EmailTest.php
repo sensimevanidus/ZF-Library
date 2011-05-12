@@ -31,7 +31,7 @@ class SE_Auth_Adapter_Doctrine_EmailTest extends LibraryClassTest {
         $authResult = $doctrineEmailAdapter->authenticate();
 
         $this->assertFalse($authResult->isValid());
-        $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::WRONG_PASSWORD, $authResult->getCode());
+        $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::IDENTITY_NOT_FOUND, $authResult->getCode());
         $this->assertNull($authResult->getIdentity());
     }
 
@@ -45,7 +45,7 @@ class SE_Auth_Adapter_Doctrine_EmailTest extends LibraryClassTest {
         $authResult = $doctrineEmailAdapter->authenticate();
 
         $this->assertFalse($authResult->isValid());
-        $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::NOT_FOUND, $authResult->getCode());
+        $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::CREDENTIAL_INVALID, $authResult->getCode());
         $this->assertNull($authResult->getIdentity());
     }
 
