@@ -36,7 +36,7 @@ class SE_Auth_Adapter_Doctrine_Facebook implements Zend_Auth_Adapter_Interface {
      */
     public function authenticate() {
         try {
-            $this->_user = $this->_facebookModel->fetchUser($this->_facebookId, $this->_accessToken, $this->_accessTokenScope);
+            $this->_user = $this->_facebookModel->fetchUser($this->_facebookId);
             $code = Zend_Auth_Result::SUCCESS;
             $message = $this->_facebookModel->fetchMessage(
                 Zend_Auth_Result::SUCCESS

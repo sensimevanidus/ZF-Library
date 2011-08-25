@@ -28,5 +28,5 @@ interface SE_Auth_Adapter_Doctrine_Model_Method_Facebook_Interface extends SE_Au
      * @return SE_Auth_Adapter_Doctrine_Model_User_Interface
      * @throws Exception
      */
-    public function fetchUser($facebookId = '', $facebookAccessToken = '', $facebookAccessTokenScope = '');
+    public function fetchUser($facebookId = '');
 }
