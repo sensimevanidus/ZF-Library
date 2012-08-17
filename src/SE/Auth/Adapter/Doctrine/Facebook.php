@@ -22,16 +22,21 @@ class SE_Auth_Adapter_Doctrine_Facebook implements Zend_Auth_Adapter_Interface {
      */
     protected $_facebookModel;
 
-    public function __construct($facebookId, $accessToken, $accessTokenScope, SE_Auth_Adapter_Doctrine_Model_Method_Facebook_Interface $facebookModel) {
-        $this->_facebookId = $facebookId;
-        $this->_accessToken = $accessToken;
-        $this->_accessTokenScope = $accessTokenScope;
+    public function __construct($facebookId = null, $accessToken = null, $accessTokenScope = null, SE_Auth_Adapter_Doctrine_Model_Method_Facebook_Interface $facebookModel) {
+        if (null === $facebookId) {
+            $fb = new Facebook();
+            $this->_facebookId = $facebookId;
+            $this->_accessToken = $accessToken;
+            $this->_accessTokenScope = $accessTokenScope;
+        } else {
+            $this->_facebookId = $facebookId;
+            $this->_accessToken = $accessToken;
+            $this->_accessTokenScope = $accessTokenScope;
+        }
         $this->_facebookModel = $facebookModel;
     }
 
     /**
-     * Tries to authenticate the user using the Facebook session and the
-     * corresponding scope.
      * @return Zend_Auth_Result
      */
     public function authenticate() {

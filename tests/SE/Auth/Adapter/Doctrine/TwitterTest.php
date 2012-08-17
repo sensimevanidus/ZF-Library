@@ -1,20 +1,20 @@
 <?php
 
 require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Model/Method/Constants.php';
-require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Facebook.php';
-require_once 'Model/Method/FacebookMock.php';
+require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Twitter.php';
+require_once 'Model/Method/TwitterMock.php';
 
-class SE_Auth_Adapter_Doctrine_FacebookTest extends LibraryClassTest {
+class SE_Auth_Adapter_Doctrine_TwitterTest extends LibraryClassTest {
 
     public function testShouldAuthenticate() {
-        $doctrineFacebookAdapter = new SE_Auth_Adapter_Doctrine_Facebook(
-            'facebook user id',
-            'facebook access token',
-            'facebook access token scope',
-            new SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock()
+        $doctrineTwitterAdapter = new SE_Auth_Adapter_Doctrine_Twitter(
+            'twitter user id',
+            'twitter access token',
+            'twitter access token secret',
+            new SE_Auth_Adapter_Doctrine_Model_Method_TwitterMock()
         );
 
-        $authResult = $doctrineFacebookAdapter->authenticate();
+        $authResult = $doctrineTwitterAdapter->authenticate();
 
         $this->assertTrue($authResult->isValid());
         $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::SUCCESS, $authResult->getCode());
@@ -23,14 +23,14 @@ class SE_Auth_Adapter_Doctrine_FacebookTest extends LibraryClassTest {
     }
 
     public function testShouldNotAuthenticateDueToNonExistingAccount() {
-        $doctrineFacebookAdapter = new SE_Auth_Adapter_Doctrine_Facebook(
-            'facebook missing user id',
-            'facebook access token',
-            'facebook access token scope',
-            new SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock()
+        $doctrineTwitterAdapter = new SE_Auth_Adapter_Doctrine_Twitter(
+            'twitter missing user id',
+            'twitter access token',
+            'twitter access token secret',
+            new SE_Auth_Adapter_Doctrine_Model_Method_TwitterMock()
         );
 
-        $authResult = $doctrineFacebookAdapter->authenticate();
+        $authResult = $doctrineTwitterAdapter->authenticate();
 
         $this->assertFalse($authResult->isValid());
         $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::CREDENTIAL_INVALID, $authResult->getCode());
@@ -38,16 +38,16 @@ class SE_Auth_Adapter_Doctrine_FacebookTest extends LibraryClassTest {
     }
 
     public function testShouldNotAuthenticateDueToInactiveAccount() {
-        $doctrineFacebookAdapter = new SE_Auth_Adapter_Doctrine_Facebook(
-            'facebook user id',
-            'facebook access token',
-            'facebook access token scope',
-            new SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock(
+        $doctrineTwitterAdapter = new SE_Auth_Adapter_Doctrine_Twitter(
+            'twitter user id',
+            'twitter access token',
+            'twitter access token secret',
+            new SE_Auth_Adapter_Doctrine_Model_Method_TwitterMock(
                 SE_Auth_Adapter_Doctrine_Model_Method_Constants::STATUS_INACTIVE
             )
         );
 
-        $authResult = $doctrineFacebookAdapter->authenticate();
+        $authResult = $doctrineTwitterAdapter->authenticate();
 
         $this->assertFalse($authResult->isValid());
         $this->assertEquals(SE_Auth_Adapter_Doctrine_Model_Method_Constants::INACTIVE, $authResult->getCode());

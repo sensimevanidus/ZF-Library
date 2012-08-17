@@ -1,21 +1,21 @@
 <?php
 
 require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Model/Method/Constants.php';
-require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Model/Method/Facebook/Interface.php';
+require_once SRC_PATH . '/SE/Auth/Adapter/Doctrine/Model/Method/Twitter/Interface.php';
 require_once realpath(__DIR__) . '/../UserMock.php';
 
-class SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock implements SE_Auth_Adapter_Doctrine_Model_Method_Facebook_Interface {
+class SE_Auth_Adapter_Doctrine_Model_Method_TwitterMock implements SE_Auth_Adapter_Doctrine_Model_Method_Twitter_Interface {
 
-    public $facebookId;
+    public $twitterId;
     public $accessToken;
-    public $accessTokenScope;
+    public $accessTokenSecret;
     public $status;
     public $user;
 
     public function  __construct($status = SE_Auth_Adapter_Doctrine_Model_Method_Constants::STATUS_ACTIVE) {
-        $this->facebookId = 'facebook user id';
-        $this->accessToken = 'facebook access token';
-        $this->accessTokenScope = 'facebook access token scope';
+        $this->twitterId = 'twitter user id';
+        $this->accessToken = 'twitter access token';
+        $this->accessTokenSecret = 'twitter access token secret';
         $this->status = $status;
         $this->user = new SE_Auth_Adapter_Doctrine_Model_UserMock(1);
     }
@@ -24,8 +24,8 @@ class SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock implements SE_Auth_Adap
         return $this->accessToken;
     }
 
-    public function fetchAccessTokenScope() {
-        return $this->$accessTokenScope;
+    public function fetchAccessTokenSecret() {
+        return $this->$accessTokenSecret;
     }
 
     public function fetchMessage($errorCode) {
@@ -48,19 +48,19 @@ class SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock implements SE_Auth_Adap
     }
 
     public function fetchName() {
-        return 'Facebook';
+        return 'Twitter';
     }
 
     public function fetchSlug() {
-        return 'facebook';
+        return 'twitter';
     }
 
     public function fetchStatus() {
         return $status;
     }
 
-    public function fetchUser($facebookId = '', $accessToken = '', $accessTokenScope = '') {
-        if ($facebookId == $this->facebookId) {
+    public function fetchUser($twitterId = '', $accessToken = '', $accessTokenSecret = '') {
+        if ($twitterId == $this->twitterId) {
             if (SE_Auth_Adapter_Doctrine_Model_Method_Constants::STATUS_INACTIVE == $this->status) {
                 throw new Exception(
                     $this->fetchMessage(SE_Auth_Adapter_Doctrine_Model_Method_Constants::INACTIVE),
@@ -77,8 +77,8 @@ class SE_Auth_Adapter_Doctrine_Model_Method_FacebookMock implements SE_Auth_Adap
         }
     }
 
-    public function fetchFacebookId() {
-        return $this->facebookId;
+    public function fetchTwitterId() {
+        return $this->twitterId;
     }
 
 }
